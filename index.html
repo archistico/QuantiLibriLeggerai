@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quanti libri leggerai?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      box-sizing: border-box;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 100%;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e3c72;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    h1::after {
+      content: '📚';
+      position: absolute;
+      right: 10px;
+      top: 0;
+      font-size: 1.8rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 1.8rem;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #5a0fb8, #1f65e0);
+    }
+
+    .result {
+      margin-top: 2rem;
+      background: #f9f9f9;
+      padding: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .result p {
+      margin: 0.5rem 0;
+      color: #222;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px dotted #aaa;
+      margin: 1rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quanti libri leggerai?</h1>
+    <div>
+      <label>Quante parole leggi al minuto (150 🐌 - 250 🐇):
+        <input id="wordsPerMinute" type="number" value="200">
+      </label>
+      <label>Anno di nascita:
+        <input id="birthYear" type="number" value="1977">
+      </label>
+      <label>L'età che avevi quando hai iniziato a leggere:
+        <input id="startAge" type="number" value="7">
+      </label>
+      <label>Età alla quale smetterai di leggere:
+        <input id="endAge" type="number" value="85">
+      </label>
+      <label>Quanti minuti leggi al giorno:
+        <input id="minutesPerDay" type="number" value="60">
+      </label>
+	  <label>Numero medio di parole per pagina:
+        <input id="wordsPerPage" type="number" value="300">
+      </label>
+      <label>Pagine di media per libro:
+        <input id="pagesPerBook" type="number" value="240">
+      </label>
+      <button id="calculateBtn">Calcola</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <footer>Emilie Rollandin - Studio Archistico</footer>
+
+  <script>
+    function calculate() {
+      const wpp = parseFloat(document.getElementById('wordsPerPage').value);
+      const ppb = parseFloat(document.getElementById('pagesPerBook').value);
+      const wpm = parseFloat(document.getElementById('wordsPerMinute').value);
+      const startAge = parseFloat(document.getElementById('startAge').value);
+      const endAge = parseFloat(document.getElementById('endAge').value);
+      const minPerDay = parseFloat(document.getElementById('minutesPerDay').value);
+      const birthYear = parseFloat(document.getElementById('birthYear').value);
+      const currentYear = (new Date()).getFullYear();
+
+      const wordsPerBook = wpp * ppb;
+      const wordsPerDay = wpm * minPerDay;
+      const booksPerDay = wordsPerDay / wordsPerBook;
+      const booksPerYear = booksPerDay * 365;
+      const yearsOfReading = endAge - startAge;
+      const totalBooks = booksPerYear * yearsOfReading;
+      const yearsStillToBeRead = birthYear + endAge - currentYear;
+      const booksStillToBeRead = yearsStillToBeRead * booksPerYear;
+
+      document.getElementById('result').innerHTML = `
+        <p><strong>📖 Parole per libro:</strong> ${wordsPerBook.toLocaleString('it-IT')}</p>
+        <p><strong>⏱️ Parole lette al giorno:</strong> ${wordsPerDay.toLocaleString('it-IT')}</p>
+        <p><strong>📅 Libri letti all'anno:</strong> ${booksPerYear.toFixed(1)}</p>
+        <hr>
+        <p><strong>🔢 Anni di lettura davanti a te:</strong> ${yearsStillToBeRead}</p>
+        <p><strong>🏆 Massimo numero di libri ancora da leggere:</strong> ${Math.round(booksStillToBeRead).toLocaleString('it-IT')}</p>
+        <hr>
+        <p><strong>🔢 Anni di lettura totali:</strong> ${yearsOfReading}</p>
+        <p><strong>🏆 Totale libri che puoi leggere nella tua vita:</strong> ${Math.round(totalBooks).toLocaleString('it-IT')}</p>
+      `;
+    }
+    document.getElementById('calculateBtn').addEventListener('click', calculate);
+  </script>
+</body>
+</html>
