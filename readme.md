@@ -1,8 +1,4 @@
-Ecco un file `README.md` strutturato in Markdown per il tuo progetto **Quanti Libri Leggerai**, pronto per essere utilizzato su GitHub. Include uno screenshot, una descrizione chiara, il link alla demo online e una guida all'uso.
-
----
-
-### 📘 Quanti Libri Leggerai
+# 📘 Quanti Libri Leggerai
 
 ![Screenshot](screenshot.png)
 
@@ -32,12 +28,6 @@ Ecco un file `README.md` strutturato in Markdown per il tuo progetto **Quanti Li
 2. Inserisci i tuoi dati nei campi richiesti
 3. Clicca su **Calcola**
 4. Scopri quanti libri potresti leggere nella tua vita!
-
----
-
-### 🖼️ Screenshot
-
-![Anteprima](screenshot.png)
 
 ---
 
